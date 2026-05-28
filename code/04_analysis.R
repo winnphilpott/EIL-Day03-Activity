@@ -36,3 +36,15 @@ print(summary_stats)
 write_csv(summary_stats, here("output", "tables", "summary_stats.csv"))
 
 message("Summary statistics saved.")
+
+# ── Notes on the distributions ────────────────────────────────────────────────
+# Both variables are heavily right-skewed: the standard deviation is roughly
+# equal to or larger than the mean, indicating a long upper tail.
+#
+# Notable high-end outliers:
+#   - Energy use:          Qatar (16,343 kg) and Iceland (15,686 kg)
+#   - Maternal mortality:  Nigeria (993 per 100,000 live births)
+#
+# Energy use has 45 fewer observations than maternal mortality (149 vs. 194)
+# due to missing World Bank data for small island states and a handful of
+# low-income countries. Keep this in mind when comparing across indicators.
