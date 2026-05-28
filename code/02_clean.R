@@ -1,20 +1,42 @@
 library(here)
 library(tidyverse)
 
-# ── 1. Load raw data ──────────────────────────────────────────────────────────
+# ── 1. Load the raw download ──────────────────────────────────────────────────
 
-# TODO: read each raw file, e.g.:
-# raw <- read_csv(here("data", "raw", "source_name.csv"))
+raw <- read_csv(here("data", "raw", "wb_indicators_2023.csv"))
 
-# ── 2. Clean ──────────────────────────────────────────────────────────────────
+# ── 2. Keep only the columns we need ─────────────────────────────────────────
+# The WDI download includes many metadata columns (region, income group, etc.)
+# We keep iso3c as our country identifier, plus the two indicator columns.
 
-# TODO: rename columns to snake_case, parse types, handle missing values
-# Suggested steps:
-#   - Standardise country identifiers (ISO-3 codes recommended)
-#   - Convert year/date columns to integer / Date
-#   - Flag or remove implausible values
+clean <- raw %>%
+  select(
+    iso3c,             # three-letter country code (our key variable)
+    country,           # country name, kept for readability
+    maternal_mortality,
+    energy_use
+  )
 
-# ── 3. Save ───────────────────────────────────────────────────────────────────
+# ── 3. Drop rows where both indicators are missing ────────────────────────────
+# A handful of countries have no data for either variable.
+# We keep rows where at least one indicator is present.
 
-# TODO: write cleaned file, e.g.:
-# write_csv(clean, here("data", "processed", "source_name_clean.csv"))
+clean <- clean %>%
+  filter(!is.na(maternal_mortality) | !is.na(energy_use))
+
+# ── 4. Check for and report any remaining missingness ─────────────────────────
+
+missing_summary <- clean %>%
+  summarise(
+    missing_maternal = sum(is.na(maternal_mortality)),
+    missing_energy   = sum(is.na(energy_use))
+  )
+
+message("Missingness after cleaning:")
+print(missing_summary)
+
+# ── 5. Save cleaned data ──────────────────────────────────────────────────────
+
+write_csv(clean, here("data", "processed", "wb_indicators_2023_clean.csv"))
+
+message("Done. Rows saved: ", nrow(clean))

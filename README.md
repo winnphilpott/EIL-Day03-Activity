@@ -7,19 +7,19 @@ Brief description of the project's purpose, research question, and geographic sc
 
 ## Indicators
 
-List each indicator collected or constructed, one per row.
+| Indicator | WB Code | Unit | Year | Countries |
+|-----------|---------|------|------|-----------|
+| Maternal mortality ratio | `SH.STA.MMRT` | per 100,000 live births | 2023 | 146 |
+| Energy use per capita | `EG.USE.PCAP.KG.OE` | kg of oil equivalent | 2023 | 146 |
 
-| Indicator | Unit | Frequency | Coverage |
-|-----------|------|-----------|----------|
-| TBD       |      |           |          |
+Coverage note: 146 individual countries have non-missing data for both indicators in 2023.
+Regional and income-group aggregates are excluded.
 
 ## Data Sources and Provenance
 
-Document every raw data source so the analysis is fully reproducible from scratch.
-
-| Dataset | Source | URL / Access path | License | Date retrieved |
-|---------|--------|-------------------|---------|----------------|
-| TBD     |        |                   |         |                |
+| Dataset | Source | Access | License | Year |
+|---------|--------|--------|---------|------|
+| World Bank Development Indicators | World Bank | `WDI` R package (API) | CC BY 4.0 | 2023 |
 
 All raw files are stored in `data/raw/` and are **never edited by hand**.
 Processed/merged outputs written by scripts live in `data/processed/`.
@@ -30,7 +30,7 @@ Processed/merged outputs written by scripts live in `data/processed/`.
 - R packages (install via `install.packages(c(...))`):
   - `tidyverse`
   - `here`
-  - *(add others as needed)*
+  - `WDI`
 
 No commercial software is required. Package versions can be pinned with
 [`renv`](https://rstudio.github.io/renv/) — see `renv.lock` if present.
