@@ -1,9 +1,11 @@
-# Country-Level Data Project
+# Country-Level Energy and Environment Data Project
+- EIL Bootcamp Day 3 Activity
 
 ## Overview
 
-Brief description of the project's purpose, research question, and geographic scope.
-(Replace this placeholder with 2–3 sentences summarizing what this repository does and why.)
+This short project is focused on building a small, well-documented repository of country-level data
+that allows me to compute stylized facts about economic growth and the environ-
+ment. Using data from the World Bank, I take a look at recent global data about maternal mortality rates and energy use per capita (aggregated at the country level). Though these data help start to answer some questions we might have about energy and environment economics, my main goal of this activity was to become more familiar with tools like VSCode, Claude Code, and GitHub.
 
 ## Indicators
 
