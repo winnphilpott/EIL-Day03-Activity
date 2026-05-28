@@ -3,7 +3,7 @@ library(tidyverse)
 
 # ── 1. Load the cleaned data ──────────────────────────────────────────────────
 
-data <- read_csv(here("data", "processed", "wb_indicators_2023_clean.csv"))
+data <- readRDS(here("data", "processed", "wb_indicators_2023_clean.rds"))
 
 # ── 2. Set a consistent plot theme and UVA brand colors ──────────────────────
 

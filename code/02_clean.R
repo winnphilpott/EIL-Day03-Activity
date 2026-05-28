@@ -1,5 +1,6 @@
 library(here)
 library(tidyverse)
+library(labelled)    # for variable labels (compatible with Stata/SPSS export)
 
 # ── 1. Load the raw download ──────────────────────────────────────────────────
 
@@ -35,8 +36,14 @@ missing_summary <- clean %>%
 message("Missingness after cleaning:")
 print(missing_summary)
 
-# ── 5. Save cleaned data ──────────────────────────────────────────────────────
+# ── 5. Add variable labels ────────────────────────────────────────────────────
 
-write_csv(clean, here("data", "processed", "wb_indicators_2023_clean.csv"))
+var_label(clean$maternal_mortality) <- "Maternal mortality ratio (per 100,000 live births)"
+var_label(clean$energy_use)         <- "Energy use per capita (kg of oil equivalent)"
+
+# ── 6. Save cleaned data ──────────────────────────────────────────────────────
+
+# .rds preserves variable labels (and all other R attributes); CSV does not.
+saveRDS(clean, here("data", "processed", "wb_indicators_2023_clean.rds"))
 
 message("Done. Rows saved: ", nrow(clean))

@@ -3,7 +3,7 @@ library(tidyverse)
 
 # ── 1. Load the cleaned data ──────────────────────────────────────────────────
 
-data <- read_csv(here("data", "processed", "wb_indicators_2023_clean.csv"))
+data <- readRDS(here("data", "processed", "wb_indicators_2023_clean.rds"))
 
 # ── 2. Summary statistics ─────────────────────────────────────────────────────
 # Compute mean, standard deviation, min, max, and non-missing count
