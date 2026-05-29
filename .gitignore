@@ -15,6 +15,7 @@ output/tables/*
 output/statistics/*
 !output/tables/.gitkeep
 !output/tables/*.csv
+!output/tables/*.tex
 !output/statistics/.gitkeep
 
 # Large / sensitive raw data (add exceptions below as needed)
