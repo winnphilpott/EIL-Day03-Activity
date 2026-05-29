@@ -9,31 +9,25 @@ data <- readRDS(here("data", "processed", "wb_indicators_2023_clean.rds"))
 # Compute mean, standard deviation, min, max, and non-missing count
 # for each indicator across all countries.
 
-summary_stats <- data %>%
-  summarise(
-    across(
-      c(maternal_mortality, energy_use),
-      list(
-        mean = ~ mean(.x, na.rm = TRUE),
-        sd   = ~ sd(.x,   na.rm = TRUE),
-        min  = ~ min(.x,  na.rm = TRUE),
-        max  = ~ max(.x,  na.rm = TRUE),
-        n    = ~ sum(!is.na(.x))
-      ),
-      .names = "{.col}__{.fn}"   # e.g. maternal_mortality__mean
+summarise_var <- function(df, var) {
+  df %>%
+    summarise(
+      mean = mean({{ var }}, na.rm = TRUE),
+      sd   = sd({{ var }},   na.rm = TRUE),
+      min  = min({{ var }},  na.rm = TRUE),
+      max  = max({{ var }},  na.rm = TRUE),
+      n    = sum(!is.na({{ var }}))
     )
-  ) %>%
-  # Reshape from wide to long so the table is easier to read
-  pivot_longer(
-    everything(),
-    names_to  = c("indicator", "statistic"),
-    names_sep = "__"
-  ) %>%
-  pivot_wider(names_from = statistic, values_from = value)
+}
 
-print(summary_stats)
+summary_maternal <- summarise_var(data, maternal_mortality)
+summary_energy   <- summarise_var(data, energy_use)
 
-write_csv(summary_stats, here("output", "tables", "summary_stats.csv"))
+print(summary_maternal)
+print(summary_energy)
+
+write_csv(summary_maternal, here("output", "tables", "summary_stats_maternal.csv"))
+write_csv(summary_energy,   here("output", "tables", "summary_stats_energy.csv"))
 
 message("Summary statistics saved.")
 
