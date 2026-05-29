@@ -77,11 +77,18 @@ gdp <- gdp_raw %>%
 data_with_gdp <- data %>%
   left_join(gdp, by = "iso3c")
 
+# Pull out the two countries we want to label
+labels <- data_with_gdp %>%
+  filter(iso3c %in% c("NGA", "USA"))
+
 fig2 <- data_with_gdp %>%
   filter(!is.na(maternal_mortality), !is.na(gdp_per_capita)) %>%
   ggplot(aes(x = gdp_per_capita, y = maternal_mortality)) +
   geom_point(alpha = 0.6, color = uva_navy, size = 2) +
   geom_smooth(method = "loess", se = TRUE, color = uva_orange, fill = uva_orange) +
+  geom_point(data = labels, color = uva_orange, size = 3) +
+  geom_text(data = labels, aes(label = country),
+            nudge_y = 40, nudge_x = 0.1, size = 3.5, color = uva_navy) +
   scale_x_log10(labels = scales::comma) +
   labs(
     title = "Maternal Mortality vs. GDP per Capita (2023)",
