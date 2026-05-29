@@ -83,11 +83,11 @@ labels <- data_with_gdp %>%
 fig2 <- data_with_gdp %>%
   filter(!is.na(energy_use), !is.na(gdp_per_capita)) %>%
   ggplot(aes(x = gdp_per_capita, y = energy_use)) +
-  geom_point(alpha = 0.6, color = uva_orange, size = 2) +
-  geom_smooth(method = "loess", se = TRUE, color = uva_navy, fill = uva_navy) +
-  geom_point(data = labels, color = uva_navy, size = 3) +
+  geom_point(alpha = 0.6, color = uva_navy, size = 2) +
+  geom_smooth(method = "loess", se = TRUE, color = uva_orange, fill = uva_orange) +
+  geom_point(data = labels, color = uva_orange, size = 3) +
   geom_text(data = labels, aes(label = country),
-            nudge_y = 500, nudge_x = 0.05, size = 3.5, color = uva_navy) +
+            nudge_y = 500, nudge_x = 0.05, size = 3.5, color = uva_orange) +
   scale_x_log10(labels = scales::comma) +
   labs(
     title = "Energy Use vs. GDP per Capita (2023)",
