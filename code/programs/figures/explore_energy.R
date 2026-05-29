@@ -79,7 +79,7 @@ data_with_gdp <- data %>%
 
 # Label a few notable countries
 labels <- data_with_gdp %>%
-  filter(iso3c %in% c("USA", "QAT", "ISL", "NGA", "CHN"))
+  filter(iso3c %in% c("QAT", "ISL"))
 
 fig2 <- data_with_gdp %>%
   filter(!is.na(energy_use), !is.na(gdp_per_capita)) %>%
