@@ -4,6 +4,7 @@ library(WDI)
 library(rnaturalearth)
 library(rnaturalearthdata)
 library(sf)
+library(ggrepel)
 
 # ── Colors ────────────────────────────────────────────────────────────────────
 
@@ -86,8 +87,8 @@ fig2 <- data_with_gdp %>%
   geom_point(alpha = 0.6, color = uva_navy, size = 2) +
   geom_smooth(method = "loess", se = TRUE, color = uva_orange, fill = uva_orange) +
   geom_point(data = labels, color = uva_orange, size = 3) +
-  geom_text(data = labels, aes(label = country),
-            nudge_y = 500, nudge_x = 0.05, size = 3.5, color = uva_orange) +
+  geom_text_repel(data = labels, aes(label = country),
+                  size = 3.5, color = uva_orange) +
   scale_x_log10(labels = scales::comma) +
   labs(
     title = "Energy Use vs. GDP per Capita (2023)",
